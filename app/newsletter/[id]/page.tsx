@@ -1,13 +1,6 @@
-import { getSortedNewslettersData } from "@/lib/newsletters";
+import { getNewsletterData, getSortedNewslettersData } from "@/lib/newsletters";
+import Markdown from "markdown-to-jsx";
 import Link from "next/link";
-import { notFound } from "next/navigation";
-
-// This is a dynamic import that will load the correct MDX file.
-// The `webpackInclude` comment is a hint for the bundler.
-const getNewsletterComponent = (id: string) =>
-  import(`../../(content)/newsletters/${id}.mdx`)
-    .then((mod) => mod.default)
-    .catch(notFound);
 
 export async function generateStaticParams() {
   const newsletters = getSortedNewslettersData();
@@ -17,11 +10,10 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
-  const NewsletterContent = await getNewsletterComponent(params.id);
-  const { frontmatter } = NewsletterContent as any;
+  const { title, summary } = await getNewsletterData(params.id);
   return {
-    title: `${frontmatter.title} | Mi Newsletter`,
-    description: frontmatter.summary,
+    title: `${title} | Mi Newsletter`,
+    description: summary,
   };
 }
 
@@ -30,8 +22,7 @@ export default async function NewsletterPage({
 }: {
   params: { id: string };
 }) {
-  const NewsletterContent = await getNewsletterComponent(params.id);
-  const { frontmatter } = NewsletterContent as any;
+  const { title, date, content } = await getNewsletterData(params.id);
 
   return (
     <div className="flex justify-center p-8 sm:p-12 font-[family-name:var(--font-geist-sans)]">
@@ -44,11 +35,11 @@ export default async function NewsletterPage({
             ‹ Volver a todos los artículos
           </Link>
           <h1 className="mt-4 text-4xl font-bold tracking-tighter sm:text-5xl">
-            {frontmatter.title}
+            {title}
           </h1>
           <p className="text-foreground/60 mt-2">
             Publicado el{" "}
-            {new Date(frontmatter.date).toLocaleDateString("es-ES", {
+            {new Date(date).toLocaleDateString("es-ES", {
               year: "numeric",
               month: "long",
               day: "numeric",
@@ -56,7 +47,7 @@ export default async function NewsletterPage({
           </p>
         </header>
 
-        <NewsletterContent />
+        <Markdown>{content}</Markdown>
       </article>
     </div>
   );
