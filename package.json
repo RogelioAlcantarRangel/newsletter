@@ -12,6 +12,7 @@
     "@modelcontextprotocol/server-memory": "^2025.4.25",
     "@modelcontextprotocol/server-sequential-thinking": "^0.6.2",
     "@playwright/mcp": "^0.0.29",
+    "gray-matter": "^4.0.3",
     "next": "15.3.4",
     "puppeteer-mcp-server": "^0.7.2",
     "react": "^19.0.0",
