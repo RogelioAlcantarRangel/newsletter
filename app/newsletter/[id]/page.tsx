@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 // The `webpackInclude` comment is a hint for the bundler.
 const getNewsletterComponent = (id: string) =>
   import(
-    `@/app/(content)/newsletters/${id}.mdx` /* webpackInclude: /\.mdx$/ */
+    `../../(content)/newsletters/${id}.mdx` /* webpackInclude: /\.mdx$/ */
   )
     .then((mod) => mod.default)
     .catch(notFound);
