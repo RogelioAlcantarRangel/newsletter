@@ -38,4 +38,27 @@ export function getSortedNewslettersData(): NewsletterData[] {
       return -1;
     }
   });
+}
+
+export interface NewsletterContent extends NewsletterData {
+  content: string;
+}
+
+export async function getNewsletterData(
+  id: string
+): Promise<NewsletterContent> {
+  const fullPath = path.join(newslettersDirectory, `${id}.mdx`);
+  const fileContents = fs.readFileSync(fullPath, "utf8");
+
+  const matterResult = matter(fileContents);
+
+  return {
+    id,
+    content: matterResult.content,
+    ...(matterResult.data as {
+      title: string;
+      date: string;
+      summary: string;
+    }),
+  };
 } 
