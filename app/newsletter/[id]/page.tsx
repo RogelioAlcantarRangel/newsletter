@@ -1,5 +1,5 @@
 import { getNewsletterData, getSortedNewslettersData } from "@/lib/newsletters";
-import { MDXRemote } from "next-mdx-remote/rsc";
+import Markdown from "markdown-to-jsx";
 import Link from "next/link";
 
 export async function generateStaticParams() {
@@ -47,7 +47,7 @@ export default async function NewsletterPage({
           </p>
         </header>
 
-        <MDXRemote source={content} />
+        <Markdown>{content}</Markdown>
       </article>
     </div>
   );
