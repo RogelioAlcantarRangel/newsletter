@@ -11,6 +11,7 @@
   "dependencies": {
     "@modelcontextprotocol/server-memory": "^2025.4.25",
     "@modelcontextprotocol/server-sequential-thinking": "^0.6.2",
+    "@next/mdx": "^15.3.4",
     "@playwright/mcp": "^0.0.29",
     "gray-matter": "^4.0.3",
     "markdown-to-jsx": "^7.7.8",
