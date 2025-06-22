@@ -2,7 +2,10 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
-const newslettersDirectory = path.resolve(process.cwd(), "content/newsletters");
+const newslettersDirectory = path.resolve(
+  process.cwd(),
+  "app/(content)/newsletters"
+);
 
 export interface NewsletterData {
   id: string;

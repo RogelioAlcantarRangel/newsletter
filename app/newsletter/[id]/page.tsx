@@ -5,7 +5,9 @@ import { notFound } from "next/navigation";
 // This is a dynamic import that will load the correct MDX file.
 // The `webpackInclude` comment is a hint for the bundler.
 const getNewsletterComponent = (id: string) =>
-  import(`@/content/newsletters/${id}.mdx` /* webpackInclude: /\.mdx$/ */)
+  import(
+    `@/app/(content)/newsletters/${id}.mdx` /* webpackInclude: /\.mdx$/ */
+  )
     .then((mod) => mod.default)
     .catch(notFound);
 
